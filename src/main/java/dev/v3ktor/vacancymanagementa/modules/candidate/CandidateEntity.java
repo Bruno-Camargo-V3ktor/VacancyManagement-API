@@ -1,5 +1,9 @@
 package dev.v3ktor.vacancymanagementa.modules.candidate;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.Length;
+
 import java.util.UUID;
 
 public class CandidateEntity {
@@ -7,9 +11,16 @@ public class CandidateEntity {
     // ATRIBUTOS
     private UUID id;
     private String name;
+
+    @Pattern(regexp = "\\S+", message = "O campo [username] não pode conter espaços")
     private String username;
+
+    @Email(message = "O campo deve conter um e-mail válido")
     private String email;
+
+    @Length(min = 10, max = 100)
     private String password;
+
     private String description;
     private String curriculum;
 

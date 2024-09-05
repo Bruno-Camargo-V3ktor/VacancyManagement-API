@@ -1,5 +1,6 @@
 package dev.v3ktor.vacancymanagementa.modules.candidate.controllers;
 
+import dev.v3ktor.vacancymanagementa.exceptions.UserFoundException;
 import dev.v3ktor.vacancymanagementa.modules.candidate.CandidateEntity;
 import dev.v3ktor.vacancymanagementa.modules.candidate.CandidateRepository;
 import jakarta.validation.Valid;
@@ -21,8 +22,8 @@ public class CandidateController {
     @PostMapping
     public ResponseEntity< CandidateEntity > create(@Valid @RequestBody CandidateEntity candidate )
     {
-        //System.out.println( "Candidato" );
-        //System.out.println( candidate.getEmail() );
+        this.candidateRepository.findByUsernameOrEmail( candidate.getUsername(), candidate.getEmail() )
+                .ifPresent( user -> { throw new UserFoundException(); } );
 
         return ResponseEntity.status(HttpStatus.CREATED).body( this.candidateRepository.save( candidate ) );
     }

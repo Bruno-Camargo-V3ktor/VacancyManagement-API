@@ -1,3 +1,12 @@
 spring:
   application:
     name: Vacancy Management - API
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/vacancy_management
+    username: admin
+    password: admin
+
+  jpa:
+    open-in-view: off

@@ -1,6 +1,7 @@
 package dev.v3ktor.vacancymanagementa.modules.company.entitys;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -15,9 +16,9 @@ public class JobEntity {
     private UUID id;
     private String description;
     private String benefits;
-    private String level;
+    @NotBlank(message = "Esse campo é obrigatorio") private String level;
 
-    @ManyToOne() @NotNull
+    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn( name = "company_id", nullable = false)
     private CompanyEntity company;
 
     @CreationTimestamp
